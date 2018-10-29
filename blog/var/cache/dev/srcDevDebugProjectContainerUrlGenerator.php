@@ -20,6 +20,8 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
+        'blog_index' => array(array('page'), array('_controller' => 'App\\Controller\\BlogController::list'), array('page' => '\\d+'), array(array('variable', '/', '\\d+', 'page'), array('text', '/blog')), array(), array()),
+        'blog_slug' => array(array('slug'), array('slug' => 'Article Sans Titre', '_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[0-9a-z-]+'), array(array('variable', '/', '[0-9a-z-]+', 'slug'), array('text', '/blog')), array(), array()),
         'home' => array(array(), array('_controller' => 'App\\Controller\\HomeController::index'), array(), array(array('text', '/')), array(), array()),
         'app_lucky_number' => array(array(), array('_controller' => 'App\\Controller\\LuckyController::number'), array(), array(array('text', '/lucky/number')), array(), array()),
         '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),

@@ -43,7 +43,11 @@ $a->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
 $a->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
 $a->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
 $a->setEntityListenerResolver(new \Doctrine\Bundle\DoctrineBundle\Mapping\ContainerAwareEntityListenerResolver($this));
-$a->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(($this->privates['.service_locator.9_yeNH1'] ?? $this->privates['.service_locator.9_yeNH1'] = new \Symfony\Component\DependencyInjection\ServiceLocator(array()))));
+$a->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(new \Symfony\Component\DependencyInjection\ServiceLocator(array('App\\Repository\\ArticleRepository' => function () {
+    return ($this->privates['App\Repository\ArticleRepository'] ?? $this->load('getArticleRepositoryService.php'));
+}, 'App\\Repository\\CategoryRepository' => function () {
+    return ($this->privates['App\Repository\CategoryRepository'] ?? $this->load('getCategoryRepositoryService.php'));
+}))));
 
 $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create(($this->services['doctrine.dbal.default_connection'] ?? $this->load('getDoctrine_Dbal_DefaultConnectionService.php')), $a);
 

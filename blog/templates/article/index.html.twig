@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CPT{% endblock %}
+
+{% block body %}
+
+    {{ dump(articleCategory) }}
+
+    <div class="container">
+
+    <h2 class="text-info">Welcome sur le blog de CPT (chasse pêche et tradition of course)</h2>
+
+    {% for category in articleCategory %}
+        <h4 class="text-success"><u>{{ category.owner.name }}</u></h4><br>
+    {% for articles in category %}
+
+    <h5 >{{ articles.title }}</h5><br>
+    <p >{{ articles.content }}</p><br><hr>
+{% endfor %}
+{% endfor %}
+</div>
+
+{% endblock %}

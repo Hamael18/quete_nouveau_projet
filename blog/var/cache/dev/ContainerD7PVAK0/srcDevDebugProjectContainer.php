@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerHUawyhd;
+namespace ContainerD7PVAK0;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -62,6 +62,7 @@ class srcDevDebugProjectContainer extends Container
         $this->fileMap = array(
             'App\\Controller\\ArticleController' => 'getArticleControllerService.php',
             'App\\Controller\\BlogController' => 'getBlogControllerService.php',
+            'App\\Controller\\CategoryController' => 'getCategoryControllerService.php',
             'App\\Controller\\HomeController' => 'getHomeControllerService.php',
             'App\\Controller\\LuckyController' => 'getLuckyControllerService.php',
             'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController' => 'getRedirectControllerService.php',

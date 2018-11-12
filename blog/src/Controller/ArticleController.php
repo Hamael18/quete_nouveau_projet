@@ -29,4 +29,5 @@ class ArticleController extends AbstractController
             'articleCategory'=> $articleCategory,
         ]);
     }
+
 }

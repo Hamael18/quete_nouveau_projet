@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="text-info mt-5 mb-3"><u>Les 3 derniers articles de la catégorie {{ categories.name }} </u></h1>
+    {% for articles in articlesCategory %}
+<div>
+        <h1>{{ 'article n°' ~ articles.id ~ ' : ' ~ articles.title }}</h1>
+        <h2>Category : {{ articles.category.name }}</h2>
+        <p>{{ articles.content }}</p>
+    </div>
+
+
+{% endfor %}
+        <a href="/">
+            Back to blog index.
+        </a>
+    </div>
+{% endblock %}

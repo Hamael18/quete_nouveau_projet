@@ -15,6 +15,13 @@
             {{ form_end(form) }}
         </div>
 
+        <div class="mt-5">
+            {{ form_start(form2) }}
+            {{ form_widget(form2) }}
+            <button type="submit" class="btn btn-success" name="btnSearch">Ajouter</button>
+            {{ form_end(form2) }}
+        </div>
+
 
         <h1 class="text-info mt-5 mb-4"><u>All articles from article s table : </u></h1>
     {% for article in articles %}

@@ -105,12 +105,28 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
         echo "
         </div>
 
+        <div class=\"mt-5\">
+            ";
+        // line 19
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form2"]) || array_key_exists("form2", $context) ? $context["form2"] : (function () { throw new Twig_Error_Runtime('Variable "form2" does not exist.', 19, $this->source); })()), 'form_start');
+        echo "
+            ";
+        // line 20
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form2"]) || array_key_exists("form2", $context) ? $context["form2"] : (function () { throw new Twig_Error_Runtime('Variable "form2" does not exist.', 20, $this->source); })()), 'widget');
+        echo "
+            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
+            ";
+        // line 22
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form2"]) || array_key_exists("form2", $context) ? $context["form2"] : (function () { throw new Twig_Error_Runtime('Variable "form2" does not exist.', 22, $this->source); })()), 'form_end');
+        echo "
+        </div>
+
 
         <h1 class=\"text-info mt-5 mb-4\"><u>All articles from article s table : </u></h1>
     ";
-        // line 20
+        // line 27
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["articles"]) || array_key_exists("articles", $context) ? $context["articles"] : (function () { throw new Twig_Error_Runtime('Variable "articles" does not exist.', 20, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["articles"]) || array_key_exists("articles", $context) ? $context["articles"] : (function () { throw new Twig_Error_Runtime('Variable "articles" does not exist.', 27, $this->source); })()));
         $context['loop'] = array(
           'parent' => $context['_parent'],
           'index0' => 0,
@@ -125,10 +141,10 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["article"]) {
-            // line 21
+            // line 28
             echo "        <div>
             <h2>";
-            // line 22
+            // line 29
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["loop"], "index", array()), "html", null, true);
             echo " / ";
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "title", array()), "html", null, true);
@@ -136,7 +152,7 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["article"], "category", array()), "name", array()), "html", null, true);
             echo "</h2>
             <p>";
-            // line 23
+            // line 30
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "content", array()), "html", null, true);
             echo "</p>
         </div>
@@ -153,13 +169,13 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['article'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 26
+        // line 33
         echo "
 
 
 
     <a href=\"";
-        // line 30
+        // line 37
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_index");
         echo "\">
         Back to blog index.
@@ -186,7 +202,7 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
 
     public function getDebugInfo()
     {
-        return array (  163 => 30,  157 => 26,  140 => 23,  132 => 22,  129 => 21,  112 => 20,  104 => 15,  99 => 13,  95 => 12,  90 => 9,  81 => 8,  64 => 6,  46 => 4,  15 => 1,);
+        return array (  179 => 37,  173 => 33,  156 => 30,  148 => 29,  145 => 28,  128 => 27,  120 => 22,  115 => 20,  111 => 19,  104 => 15,  99 => 13,  95 => 12,  90 => 9,  81 => 8,  64 => 6,  46 => 4,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -206,6 +222,13 @@ class __TwigTemplate_3ee47dda8bd5b9c005c34c66b9a7c98532e455e218974bdd64c1a0a2c7c
             {{ form_row(form.searchField) }}
             <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Rechercher</button>
             {{ form_end(form) }}
+        </div>
+
+        <div class=\"mt-5\">
+            {{ form_start(form2) }}
+            {{ form_widget(form2) }}
+            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
+            {{ form_end(form2) }}
         </div>
 
 

@@ -416,6 +416,9 @@
     <service id="App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\ArticleType" class="App\Form\ArticleType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -672,6 +675,7 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\ArticleSearchType</argument>
+        <argument>App\Form\ArticleType</argument>
         <argument>App\Form\CategoryType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -899,7 +903,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.oGO2KmK"/>
+      <argument type="service" id=".service_locator.Croq9pT"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -4211,6 +4215,8 @@
     <service id=".abstract.instanceof.App\Controller\LuckyController" class="App\Controller\LuckyController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleType" class="App\Form\ArticleType" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ArticleType" class="App\Form\ArticleType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" public="false" autowire="true" abstract="true"/>
@@ -4379,14 +4385,16 @@
         <argument key="category" type="service" id=".errored..service_locator.koD3dBr.App\Entity\Category"/>
       </argument>
     </service>
-    <service id=".service_locator.A0NYPHI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ArQfgGv" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Controller\BlogController::index" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController::indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController::showByCategory" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController::showCategory" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController::showOne" type="service" id=".service_locator.zv3hrPg"/>
         <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController:index" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController:indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController:showByCategory" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController:showCategory" type="service" id=".service_locator.koD3dBr"/>
@@ -4451,10 +4459,11 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.oGO2KmK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Croq9pT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ArticleSearchType" type="service" id="App\Form\ArticleSearchType"/>
+        <argument key="App\Form\ArticleType" type="service" id="App\Form\ArticleType"/>
         <argument key="App\Form\CategoryType" type="service" id="App\Form\CategoryType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
@@ -4633,7 +4642,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.A0NYPHI"/>
+      <argument type="service" id=".service_locator.ArQfgGv"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -5054,7 +5063,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.A0NYPHI"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.ArQfgGv"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~mHb.yHH" public="false"/>

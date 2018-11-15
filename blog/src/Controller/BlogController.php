@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ArticleType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Tests\Compiler\C;
@@ -37,7 +38,7 @@ class BlogController extends AbstractController
      * @Route("/", name="blog_index")
      * @return Response A response instance
      */
-    public function index(Request $request) : Response
+    public function index(Request $request, ObjectManager $manager) : Response
     {
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
@@ -61,11 +62,22 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('article_show',['title'=>$recherche['searchField']]);
 
         }
+        $articleAjout= new Article();
+        $form2= $this->createForm(ArticleType::class, $articleAjout);
+        $form2->handleRequest($request);
+        if ($form2->isSubmitted())
+        {
+            $manager->persist($articleAjout);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_index');
+        }
 
         return $this->render(
             'blog/index.html.twig', [
                 'articles' => $articles,
                 'form' => $form->createView(),
+                'form2'=> $form2->createView(),
             ]
         );
 

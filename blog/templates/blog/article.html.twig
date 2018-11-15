@@ -4,8 +4,9 @@
 
 {%  block body %}
 
-    <div class="container">
+    <div class="container mt-5">
         <h2>{{ article.title }}</h2>
+        <h4 class="text-info"><u>{{ article.category.name }}</u></h4>
         <p>{{ article.content }}</p>
     </div>
 

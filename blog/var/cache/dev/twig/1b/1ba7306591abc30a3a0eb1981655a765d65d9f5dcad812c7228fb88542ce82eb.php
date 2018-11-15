@@ -70,14 +70,18 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
 
         // line 6
         echo "
-    <div class=\"container\">
+    <div class=\"container mt-5\">
         <h2>";
         // line 8
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 8, $this->source); })()), "title", array()), "html", null, true);
         echo "</h2>
-        <p>";
+        <h4 class=\"text-info\"><u>";
         // line 9
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 9, $this->source); })()), "content", array()), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 9, $this->source); })()), "category", array()), "name", array()), "html", null, true);
+        echo "</u></h4>
+        <p>";
+        // line 10
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 10, $this->source); })()), "content", array()), "html", null, true);
         echo "</p>
     </div>
 
@@ -102,7 +106,7 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
 
     public function getDebugInfo()
     {
-        return array (  80 => 9,  76 => 8,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
+        return array (  84 => 10,  80 => 9,  76 => 8,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -113,8 +117,9 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
 
 {%  block body %}
 
-    <div class=\"container\">
+    <div class=\"container mt-5\">
         <h2>{{ article.title }}</h2>
+        <h4 class=\"text-info\"><u>{{ article.category.name }}</u></h4>
         <p>{{ article.content }}</p>
     </div>
 

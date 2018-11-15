@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Index{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
 {% block body %}
     <div class="container">
+
+        <div class="mt-5">
+            {{ form_start(form) }}
+            {{ form_row(form.searchField) }}
+            <button type="submit" class="btn btn-success" name="btnSearch">Rechercher</button>
+            {{ form_end(form) }}
+        </div>
+
+
         <h1 class="text-info mt-5 mb-4"><u>All articles from article s table : </u></h1>
     {% for article in articles %}
         <div>
@@ -13,6 +23,10 @@
             <p>{{ article.content }}</p>
         </div>
     {% endfor %}
+
+
+
+
     <a href="{{ path('blog_index') }}">
         Back to blog index.
     </a>

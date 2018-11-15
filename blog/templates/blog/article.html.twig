@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %} Un article {% endblock %}
+
+{%  block body %}
+
+    <div class="container">
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+    </div>
+
+{% endblock %}

@@ -263,6 +263,7 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception::showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_4_layout.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">/home/wilder/Documents/quête/symfony/blog/templates</parameter>
     <parameter key="monolog.use_microseconds">true</parameter>
@@ -391,6 +392,13 @@
         <argument type="service" id=".service_locator.ychIlgF.App\Controller\BlogController"/>
       </call>
     </service>
+    <service id="App\Controller\CategoryController" class="App\Controller\CategoryController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ychIlgF.App\Controller\CategoryController"/>
+      </call>
+    </service>
     <service id="App\Controller\HomeController" class="App\Controller\HomeController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -404,6 +412,12 @@
       <call method="setContainer">
         <argument type="service" id=".service_locator.ychIlgF.App\Controller\LuckyController"/>
       </call>
+    </service>
+    <service id="App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -653,9 +667,12 @@
       <argument type="service" id="form.registry"/>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
+        <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\ArticleSearchType</argument>
+        <argument>App\Form\CategoryType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
@@ -882,7 +899,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.wasPXBS"/>
+      <argument type="service" id=".service_locator.oGO2KmK"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -2359,7 +2376,7 @@
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
       <argument>null</argument>
       <argument type="service" id="property_accessor"/>
-      <argument>null</argument>
+      <argument type="service" id="property_info" on-invalid="ignore"/>
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
     </service>
     <service id="serializer.denormalizer.array" class="Symfony\Component\Serializer\Normalizer\ArrayDenormalizer" public="false">
@@ -2411,6 +2428,33 @@
     <service id="property_info.serializer_extractor" class="Symfony\Component\PropertyInfo\Extractor\SerializerExtractor" public="false">
       <tag name="property_info.list_extractor" priority="-999"/>
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
+    </service>
+    <service id="property_info" class="Symfony\Component\PropertyInfo\PropertyInfoExtractor" public="false">
+      <argument type="iterator">
+        <argument type="service" id="property_info.serializer_extractor"/>
+        <argument type="service" id="property_info.reflection_extractor"/>
+        <argument type="service" id="doctrine.orm.default_entity_manager.property_info_extractor"/>
+      </argument>
+      <argument type="iterator">
+        <argument type="service" id="doctrine.orm.default_entity_manager.property_info_extractor"/>
+        <argument type="service" id="property_info.php_doc_extractor"/>
+        <argument type="service" id="property_info.reflection_extractor"/>
+      </argument>
+      <argument type="iterator">
+        <argument type="service" id="property_info.php_doc_extractor"/>
+      </argument>
+      <argument type="iterator">
+        <argument type="service" id="property_info.reflection_extractor"/>
+      </argument>
+    </service>
+    <service id="property_info.reflection_extractor" class="Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor" public="false">
+      <tag name="property_info.list_extractor" priority="-1000"/>
+      <tag name="property_info.type_extractor" priority="-1002"/>
+      <tag name="property_info.access_extractor" priority="-1000"/>
+    </service>
+    <service id="property_info.php_doc_extractor" class="Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor">
+      <tag name="property_info.description_extractor" priority="-1000"/>
+      <tag name="property_info.type_extractor" priority="-1001"/>
     </service>
     <service id="web_link.add_link_header_listener" class="Symfony\Component\WebLink\EventListener\AddLinkHeaderListener" public="false">
       <tag name="kernel.event_subscriber"/>
@@ -3578,10 +3622,11 @@
         <argument key="default_path">/home/wilder/Documents/quête/symfony/blog/templates</argument>
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
-        <argument key="exception_controller">twig.controller.exception::showAction</argument>
         <argument key="form_themes" type="collection">
           <argument>form_div_layout.html.twig</argument>
+          <argument>bootstrap_4_layout.html.twig</argument>
         </argument>
+        <argument key="exception_controller">twig.controller.exception::showAction</argument>
         <argument key="autoescape">name</argument>
         <argument key="cache">/home/wilder/Documents/quête/symfony/blog/var/cache/dev/twig</argument>
         <argument key="charset">UTF-8</argument>
@@ -4155,12 +4200,19 @@
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\BlogController" class="App\Controller\BlogController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\BlogController" class="App\Controller\BlogController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\BlogController" class="App\Controller\BlogController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\CategoryController" class="App\Controller\CategoryController" public="false" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CategoryController" class="App\Controller\CategoryController" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CategoryController" class="App\Controller\CategoryController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\HomeController" class="App\Controller\HomeController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HomeController" class="App\Controller\HomeController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\HomeController" class="App\Controller\HomeController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\LuckyController" class="App\Controller\LuckyController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\LuckyController" class="App\Controller\LuckyController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\LuckyController" class="App\Controller\LuckyController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ArticleSearchType" class="App\Form\ArticleSearchType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\CategoryType" class="App\Form\CategoryType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="false" autowire="true" abstract="true"/>
@@ -4309,17 +4361,37 @@
         <argument>make:migration</argument>
       </call>
     </service>
+    <service id=".service_locator.zv3hrPg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="article" type="service" id=".errored..service_locator.zv3hrPg.App\Entity\Article"/>
+      </argument>
+    </service>
+    <service id=".service_locator.OLaif_L" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="manager" type="service" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.koD3dBr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="category" type="service" id=".errored..service_locator.koD3dBr.App\Entity\Category"/>
       </argument>
     </service>
-    <service id=".service_locator.AKg12dx" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.A0NYPHI" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Controller\BlogController::indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController::showByCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController::showCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController::showOne" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController:indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController:showByCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController:showCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController:showOne" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.koD3dBr"/>
       </argument>
     </service>
     <service id=".service_locator.yQVjGlt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -4379,9 +4451,11 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.wasPXBS" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.oGO2KmK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\ArticleSearchType" type="service" id="App\Form\ArticleSearchType"/>
+        <argument key="App\Form\CategoryType" type="service" id="App\Form\CategoryType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
@@ -4559,7 +4633,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.AKg12dx"/>
+      <argument type="service" id=".service_locator.A0NYPHI"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -4587,6 +4661,11 @@
     </service>
     <service id=".service_locator.ychIlgF.App\Controller\BlogController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <argument>App\Controller\BlogController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ychIlgF" method="withContext"/>
+    </service>
+    <service id=".service_locator.ychIlgF.App\Controller\CategoryController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <argument>App\Controller\CategoryController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ychIlgF" method="withContext"/>
     </service>
@@ -4649,6 +4728,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.UEpceA5" method="withContext"/>
     </service>
+    <service id=".errored..service_locator.zv3hrPg.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.koD3dBr.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".service_locator.HKoUR8q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -4921,6 +5001,7 @@
     <service id="Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface" alias="serializer.mapping.class_discriminator_resolver" public="false"/>
     <service id="Symfony\Component\Serializer\Normalizer\ObjectNormalizer" alias="serializer.normalizer.object" public="false"/>
     <service id="Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface" alias="serializer.mapping.class_metadata_factory" public="false"/>
+    <service id="Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface" alias="property_info" public="false"/>
     <service id="sensio_framework_extra.converter.doctrine.orm.expression_language" alias="sensio_framework_extra.converter.doctrine.orm.expression_language.default" public="false"/>
     <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default" public="false"/>
     <service id="Doctrine\DBAL\Driver\Connection" alias="doctrine.dbal.default_connection" public="false"/>
@@ -4965,7 +5046,7 @@
     <service id="Swift_Spool" alias="swiftmailer.mailer.default.spool.memory" public="false"/>
     <service id="swiftmailer.plugin.messagelogger" alias="swiftmailer.mailer.default.plugin.messagelogger"/>
     <service id="swiftmailer.mailer" alias="swiftmailer.mailer.default"/>
-    <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport.spool"/>
+    <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport.spool" public="true"/>
     <service id="Swift_Mailer" alias="swiftmailer.mailer.default" public="false"/>
     <service id="Swift_Transport" alias="swiftmailer.mailer.default.transport.spool" public="false"/>
     <service id="mailer" alias="swiftmailer.mailer.default" public="true"/>
@@ -4973,7 +5054,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.AKg12dx"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.A0NYPHI"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~mHb.yHH" public="false"/>

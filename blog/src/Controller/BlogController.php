@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Tests\Compiler\C;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
+use App\Form\ArticleSearchType;
+use App\Form\CategoryType;
 
 class BlogController extends AbstractController
 {
@@ -18,6 +22,121 @@ class BlogController extends AbstractController
     {
         return $this->render('blog/index.html.twig', ['page' => $page]);
     }
+
+    /**
+     * @Route("/blog/{title}", name="article_show")
+     */
+    public function showOne(Article $article)
+    {
+        return $this->render('blog/article.html.twig', ['article'=>$article]);
+    }
+
+    /**
+     * Show all row from article's entity
+     *
+     * @Route("/", name="blog_index")
+     * @return Response A response instance
+     */
+    public function index(Request $request) : Response
+    {
+        $articles = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findAll();
+
+        if (!$articles) {
+            throw $this->createNotFoundException(
+                'No article found in article\'s table.'
+            );
+        }
+
+        $form = $this->createForm(ArticleSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            $recherche= $form->getData();
+            $article=$this->getDoctrine()->getRepository(Article::class)->findBy(
+                ['title'=>$recherche]
+            );
+            return $this->redirectToRoute('article_show',['title'=>$recherche['searchField']]);
+
+        }
+
+        return $this->render(
+            'blog/index.html.twig', [
+                'articles' => $articles,
+                'form' => $form->createView(),
+            ]
+        );
+
+    }
+    /**
+     * @Route("/category", name="category")
+     */
+    public function indexCategory(Request $request, ObjectManager $manager) : Response
+    {
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No category\'s found in category\'s table.'
+            );
+        }
+        $category= new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            $manager->persist($category);
+            $manager->flush();
+
+            return $this->redirectToRoute('category');
+
+        }
+
+        return $this->render(
+            'category/index.html.twig', [
+                'categories' => $categories,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+    /**
+     * @Route("/category/{id}", name="category_show")
+     */
+    public function showCategory(Category $category) : Response
+    {
+        $categ = $this->getDoctrine()->getRepository(Category::class)->find($category);
+        return $this->render('category/index.html.twig', [
+            'categ' => $categ
+        ]);
+    }
+    /**
+     * Show all row from category
+     *
+     * @Route("/category/{name}", name="blog_show_category")
+     * @return Response A response instance
+     */
+    public function showByCategory(Category $category)
+    {
+        $categories=$this->getDoctrine()->getRepository(Category::class)->find($category);
+        $articlesCategory=$this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBycategory($category,['id'=>'DESC'],3);
+        if (!$articlesCategory) {
+            throw $this->createNotFoundException(
+                'No article found in this category'
+            );
+        }
+
+        return $this->render(
+            'blog/category.html.twig',
+            ['articlesCategory' => $articlesCategory,'categories'=>$categories]
+        );
+    }
+
     /**
      * Getting a article with a formatted slug for title
      *
@@ -57,52 +176,4 @@ class BlogController extends AbstractController
             ]
         );
     }
-    /**
-     * Show all row from article's entity
-     *
-     * @Route("/", name="blog_index")
-     * @return Response A response instance
-     */
-    public function index() : Response
-    {
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findAll();
-
-        if (!$articles) {
-            throw $this->createNotFoundException(
-                'No article found in article\'s table.'
-            );
-        }
-
-        return $this->render(
-            'blog/index.html.twig',
-            ['articles' => $articles]
-        );
-    }
-    /**
-     * Show all row from category
-     *
-     * @Route("/category/{name}", name="blog_show_category")
-     * @return Response A response instance
-     */
-    public function showByCategory(Category $category)
-    {
-        $categories=$this->getDoctrine()->getRepository(Category::class)->find($category);
-        $articlesCategory=$this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findBycategory($category,['id'=>'DESC'],3);
-        if (!$articlesCategory) {
-            throw $this->createNotFoundException(
-                'No article found in this category'
-            );
-        }
-
-        return $this->render(
-            'blog/category.html.twig',
-            ['articlesCategory' => $articlesCategory,'categories'=>$categories]
-        );
-    }
-
-
 }

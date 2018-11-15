@@ -70,37 +70,36 @@ class __TwigTemplate_806a2d64a7b8e592f2874951a77d003080c5d66acce82851c18ac0a582f
 
         // line 6
         echo "
-    ";
-        // line 7
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\DumpExtension']->dump($this->env, $context, (isset($context["articleCategory"]) || array_key_exists("articleCategory", $context) ? $context["articleCategory"] : (function () { throw new Twig_Error_Runtime('Variable "articleCategory" does not exist.', 7, $this->source); })()));
-        echo "
+
 
     <div class=\"container\">
+
+
 
     <h2 class=\"text-info\">Welcome sur le blog de CPT (chasse pêche et tradition of course)</h2>
 
     ";
-        // line 13
+        // line 15
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["articleCategory"]) || array_key_exists("articleCategory", $context) ? $context["articleCategory"] : (function () { throw new Twig_Error_Runtime('Variable "articleCategory" does not exist.', 13, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["articleCategory"]) || array_key_exists("articleCategory", $context) ? $context["articleCategory"] : (function () { throw new Twig_Error_Runtime('Variable "articleCategory" does not exist.', 15, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 14
+            // line 16
             echo "        <h4 class=\"text-success\"><u>";
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["category"], "owner", array()), "name", array()), "html", null, true);
             echo "</u></h4><br>
     ";
-            // line 15
+            // line 17
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($context["category"]);
             foreach ($context['_seq'] as $context["_key"] => $context["articles"]) {
-                // line 16
+                // line 18
                 echo "
     <h5 >";
-                // line 17
+                // line 19
                 echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["articles"], "title", array()), "html", null, true);
                 echo "</h5><br>
     <p >";
-                // line 18
+                // line 20
                 echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["articles"], "content", array()), "html", null, true);
                 echo "</p><br><hr>
 ";
@@ -112,7 +111,7 @@ class __TwigTemplate_806a2d64a7b8e592f2874951a77d003080c5d66acce82851c18ac0a582f
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 21
+        // line 23
         echo "</div>
 
 ";
@@ -136,7 +135,7 @@ class __TwigTemplate_806a2d64a7b8e592f2874951a77d003080c5d66acce82851c18ac0a582f
 
     public function getDebugInfo()
     {
-        return array (  116 => 21,  104 => 18,  100 => 17,  97 => 16,  93 => 15,  88 => 14,  84 => 13,  75 => 7,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
+        return array (  115 => 23,  103 => 20,  99 => 19,  96 => 18,  92 => 17,  87 => 16,  83 => 15,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -147,9 +146,11 @@ class __TwigTemplate_806a2d64a7b8e592f2874951a77d003080c5d66acce82851c18ac0a582f
 
 {% block body %}
 
-    {{ dump(articleCategory) }}
+
 
     <div class=\"container\">
+
+
 
     <h2 class=\"text-info\">Welcome sur le blog de CPT (chasse pêche et tradition of course)</h2>
 

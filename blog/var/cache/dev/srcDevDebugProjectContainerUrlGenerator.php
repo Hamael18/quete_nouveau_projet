@@ -26,6 +26,7 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'category' => array(array(), array('_controller' => 'App\\Controller\\BlogController::indexCategory'), array(), array(array('text', '/category')), array(), array()),
         'blog_show_category' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showByCategory'), array(), array(array('variable', '/', '[^/]++', 'name'), array('text', '/category')), array(), array()),
         'blog_show' => array(array('slug'), array('_controller' => 'App\\Controller\\BlogController::show'), array('slug' => '[a-z0-9-]+'), array(array('variable', '/', '[a-z0-9-]+', 'slug')), array(), array()),
+        'blog_show_tag' => array(array('name'), array('_controller' => 'App\\Controller\\BlogController::showByTag'), array(), array(array('variable', '/', '[^/]++', 'name'), array('text', '/tag')), array(), array()),
         'category_show' => array(array('id'), array('_controller' => 'App\\Controller\\CategoryController::show'), array(), array(array('variable', '/', '[^/]++', 'id'), array('text', '/categorie')), array(), array()),
         'home' => array(array(), array('_controller' => 'App\\Controller\\HomeController::index'), array(), array(array('text', '/')), array(), array()),
         'app_lucky_number' => array(array(), array('_controller' => 'App\\Controller\\LuckyController::number'), array(), array(array('text', '/lucky/number')), array(), array()),

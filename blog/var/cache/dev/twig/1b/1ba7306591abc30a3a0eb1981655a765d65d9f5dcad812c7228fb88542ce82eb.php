@@ -75,16 +75,45 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
         // line 8
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 8, $this->source); })()), "title", array()), "html", null, true);
         echo "</h2>
-        <h4 class=\"text-info\"><u>";
+        <a href=\"";
         // line 9
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_show_category", array("name" => twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 9, $this->source); })()), "category", array()), "name", array()))), "html", null, true);
+        echo "\"><h4 class=\"text-info\"><u>";
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 9, $this->source); })()), "category", array()), "name", array()), "html", null, true);
-        echo "</u></h4>
+        echo "</u></h4></a>
         <p>";
         // line 10
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 10, $this->source); })()), "content", array()), "html", null, true);
         echo "</p>
-    </div>
 
+    <strong>Tags :</strong>
+    <ul>
+        ";
+        // line 14
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["article"]) || array_key_exists("article", $context) ? $context["article"] : (function () { throw new Twig_Error_Runtime('Variable "article" does not exist.', 14, $this->source); })()), "tags", array()));
+        $context['_iterated'] = false;
+        foreach ($context['_seq'] as $context["_key"] => $context["tag"]) {
+            // line 15
+            echo "            <a href=\"";
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_show_tag", array("name" => twig_get_attribute($this->env, $this->source, $context["tag"], "name", array()))), "html", null, true);
+            echo "\"><li>";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["tag"], "name", array()), "html", null, true);
+            echo " </li></a>
+        ";
+            $context['_iterated'] = true;
+        }
+        if (!$context['_iterated']) {
+            // line 17
+            echo "            <li>No tags for this article</li>
+        ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['tag'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 19
+        echo "    </ul>
+    </div>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -106,7 +135,7 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
 
     public function getDebugInfo()
     {
-        return array (  84 => 10,  80 => 9,  76 => 8,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
+        return array (  115 => 19,  108 => 17,  98 => 15,  93 => 14,  86 => 10,  80 => 9,  76 => 8,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -119,10 +148,18 @@ class __TwigTemplate_c0c5892e80cbb58e5aa3b8ebbadd5fe8b481cb349828ddd41a8868ebb39
 
     <div class=\"container mt-5\">
         <h2>{{ article.title }}</h2>
-        <h4 class=\"text-info\"><u>{{ article.category.name }}</u></h4>
+        <a href=\"{{ path('blog_show_category', {name: article.category.name}) }}\"><h4 class=\"text-info\"><u>{{ article.category.name }}</u></h4></a>
         <p>{{ article.content }}</p>
-    </div>
 
+    <strong>Tags :</strong>
+    <ul>
+        {% for tag in article.tags %}
+            <a href=\"{{ path('blog_show_tag', {name: tag.name}) }}\"><li>{{ tag.name }} </li></a>
+        {% else %}
+            <li>No tags for this article</li>
+        {% endfor %}
+    </ul>
+    </div>
 {% endblock %}", "blog/article.html.twig", "/home/wilder/Documents/quête/symfony/blog/templates/blog/article.html.twig");
     }
 }

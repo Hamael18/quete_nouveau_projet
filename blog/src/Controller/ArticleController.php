@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Tag;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Tests\Compiler\C;
@@ -17,6 +18,7 @@ class ArticleController extends AbstractController
     public function index()
     {
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
         foreach ($categories as $category) {
             $articles = $this->getDoctrine()->getRepository(Article::class)->findBy(['category' => $category->getId()]);
 
@@ -27,6 +29,7 @@ class ArticleController extends AbstractController
             'categories' => $categories,
             'articles' => $articles,
             'articleCategory'=> $articleCategory,
+
         ]);
     }
 

@@ -444,6 +444,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\TagRepository" class="App\Repository\TagRepository" public="false" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>
@@ -1952,14 +1956,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -2708,7 +2704,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.aqvQdqz"/>
+      <argument type="service" id=".service_locator.ttLt0SY"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4268,6 +4264,8 @@
     <service id=".abstract.instanceof.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TagRepository" class="App\Repository\TagRepository" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TagRepository" class="App\Repository\TagRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="maker.auto_command.make_auth" class="Symfony\Bundle\MakerBundle\Command\MakerCommand" public="false">
       <tag name="console.command" command="make:auth"/>
       <argument type="service" id="maker.maker.make_authenticator"/>
@@ -4430,18 +4428,26 @@
         <argument key="category" type="service" id=".errored..service_locator.koD3dBr.App\Entity\Category"/>
       </argument>
     </service>
-    <service id=".service_locator.ArQfgGv" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.z2T0V0W" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="tag" type="service" id=".errored..service_locator.z2T0V0W.App\Entity\Tag"/>
+      </argument>
+    </service>
+    <service id=".service_locator.yW9w7_k" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\BlogController::index" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController::indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController::showByCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController::showByTag" type="service" id=".service_locator.z2T0V0W"/>
         <argument key="App\Controller\BlogController::showCategory" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController::showOne" type="service" id=".service_locator.zv3hrPg"/>
         <argument key="App\Controller\CategoryController::show" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController:index" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController:indexCategory" type="service" id=".service_locator.OLaif_L"/>
         <argument key="App\Controller\BlogController:showByCategory" type="service" id=".service_locator.koD3dBr"/>
+        <argument key="App\Controller\BlogController:showByTag" type="service" id=".service_locator.z2T0V0W"/>
         <argument key="App\Controller\BlogController:showCategory" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\BlogController:showOne" type="service" id=".service_locator.zv3hrPg"/>
         <argument key="App\Controller\CategoryController:show" type="service" id=".service_locator.koD3dBr"/>
@@ -4515,11 +4521,12 @@
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
       </argument>
     </service>
-    <service id=".service_locator.aqvQdqz" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.ttLt0SY" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArticleRepository" type="service" id="App\Repository\ArticleRepository"/>
         <argument key="App\Repository\CategoryRepository" type="service" id="App\Repository\CategoryRepository"/>
+        <argument key="App\Repository\TagRepository" type="service" id="App\Repository\TagRepository"/>
       </argument>
     </service>
     <service id="security.logout.handler.csrf_token_clearing" class="Symfony\Component\Security\Http\Logout\CsrfTokenClearingLogoutHandler" public="false">
@@ -4687,7 +4694,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.ArQfgGv"/>
+      <argument type="service" id=".service_locator.yW9w7_k"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -4784,6 +4791,7 @@
     </service>
     <service id=".errored..service_locator.zv3hrPg.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.koD3dBr.App\Entity\Category" class="App\Entity\Category"/>
+    <service id=".errored..service_locator.z2T0V0W.App\Entity\Tag" class="App\Entity\Tag"/>
     <service id=".service_locator.HKoUR8q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5110,7 +5118,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.ArQfgGv"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.yW9w7_k"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~mHb.yHH" public="false"/>

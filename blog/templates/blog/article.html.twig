@@ -6,8 +6,16 @@
 
     <div class="container mt-5">
         <h2>{{ article.title }}</h2>
-        <h4 class="text-info"><u>{{ article.category.name }}</u></h4>
+        <a href="{{ path('blog_show_category', {name: article.category.name}) }}"><h4 class="text-info"><u>{{ article.category.name }}</u></h4></a>
         <p>{{ article.content }}</p>
-    </div>
 
+    <strong>Tags :</strong>
+    <ul>
+        {% for tag in article.tags %}
+            <a href="{{ path('blog_show_tag', {name: tag.name}) }}"><li>{{ tag.name }} </li></a>
+        {% else %}
+            <li>No tags for this article</li>
+        {% endfor %}
+    </ul>
+    </div>
 {% endblock %}

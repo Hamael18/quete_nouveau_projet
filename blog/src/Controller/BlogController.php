@@ -13,6 +13,7 @@ use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
+use App\Entity\Tag;
 
 class BlogController extends AbstractController
 {
@@ -29,6 +30,7 @@ class BlogController extends AbstractController
      */
     public function showOne(Article $article)
     {
+
         return $this->render('blog/article.html.twig', ['article'=>$article]);
     }
 
@@ -187,5 +189,14 @@ class BlogController extends AbstractController
                 'slug'=>$slug
             ]
         );
+    }
+    /**
+     * @param Tag $tag
+     * @return Response
+     * @Route("tag/{name}", name="blog_show_tag")
+     */
+    public function showByTag (Tag $tag)
+    {
+        return $this->render('blog/tags.html.twig', ['tag'=>$tag]);
     }
 }

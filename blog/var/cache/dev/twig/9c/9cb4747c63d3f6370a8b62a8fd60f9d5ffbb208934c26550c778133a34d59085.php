@@ -80,7 +80,7 @@ class __TwigTemplate_a2cf3ce0e206cfed837f806c5139f05a91c4351593fb6f0b7137e079020
         // line 12
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 12, $this->source); })()), "searchField", array()), 'row');
         echo "
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Rechercher</button>
+            <button type=\"submit\" class=\"btn btn-danger\" name=\"btnSearch\">Rechercher</button>
             ";
         // line 14
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 14, $this->source); })()), 'form_end');
@@ -96,7 +96,7 @@ class __TwigTemplate_a2cf3ce0e206cfed837f806c5139f05a91c4351593fb6f0b7137e079020
         // line 19
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form2"]) || array_key_exists("form2", $context) ? $context["form2"] : (function () { throw new Twig_Error_Runtime('Variable "form2" does not exist.', 19, $this->source); })()), 'widget');
         echo "
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
+            <button type=\"submit\" class=\"btn btn-danger\" name=\"btnSearch\">Ajouter</button>
             ";
         // line 21
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form2"]) || array_key_exists("form2", $context) ? $context["form2"] : (function () { throw new Twig_Error_Runtime('Variable "form2" does not exist.', 21, $this->source); })()), 'form_end');
@@ -229,14 +229,14 @@ class __TwigTemplate_a2cf3ce0e206cfed837f806c5139f05a91c4351593fb6f0b7137e079020
         <div class=\"mt-5\">
             {{ form_start(form) }}
             {{ form_row(form.searchField) }}
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Rechercher</button>
+            <button type=\"submit\" class=\"btn btn-danger\" name=\"btnSearch\">Rechercher</button>
             {{ form_end(form) }}
         </div>
 
         <div class=\"mt-5\">
             {{ form_start(form2) }}
             {{ form_widget(form2) }}
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
+            <button type=\"submit\" class=\"btn btn-danger\" name=\"btnSearch\">Ajouter</button>
             {{ form_end(form2) }}
         </div>
 

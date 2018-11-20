@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DataFixtures\CategoryFixtures;
 use App\Form\ArticleType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
 use App\Entity\Tag;
+use App\Service\Slugify;
 
 class BlogController extends AbstractController
 {
@@ -65,6 +67,7 @@ class BlogController extends AbstractController
 
         }
         $articleAjout= new Article();
+/*        $articleAjout->setSlug($slugify->generate($articleAjout->getTitle()));*/
         $form2= $this->createForm(ArticleType::class, $articleAjout);
         $form2->handleRequest($request);
         if ($form2->isSubmitted())
@@ -74,6 +77,7 @@ class BlogController extends AbstractController
 
             return $this->redirectToRoute('blog_index');
         }
+
 
         return $this->render(
             'blog/index.html.twig', [

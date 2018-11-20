@@ -3,7 +3,6 @@
 
 {% block title %}Index{% endblock %}
 
-{% block stylesheets %}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -26,8 +25,15 @@
         <h1 class="text-info mt-5 mb-4"><u>All articles from article s table : </u></h1>
     {% for article in articles %}
         <div>
-            <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+            <h2>{{ loop.index }} / {{ article.title }} - <a href = "{{ path('blog_show_category', {name:article.category.name}) }}">Category : {{ article.category.name }}</a></h2>
             <p>{{ article.content }}</p>
+            <ul>
+                {% for tag in article.tags %}
+                    <a href="{{ path('blog_show_tag', {name: tag.name}) }}"><li>{{ tag.name }} </li></a>
+                {% else %}
+                    <li>No tags for this article</li>
+                {% endfor %}
+            </ul>
         </div>
     {% endfor %}
 

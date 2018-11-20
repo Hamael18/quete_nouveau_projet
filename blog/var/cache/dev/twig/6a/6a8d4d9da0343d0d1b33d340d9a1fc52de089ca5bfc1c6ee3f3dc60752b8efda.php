@@ -53,17 +53,19 @@ class __TwigTemplate_849b6403b4620a2eac43fbd8bfb777882d09787020cc90b8da7466e7d8a
         // line 14
         echo "
 </header>
+
+<div class=\"container\">
         ";
-        // line 16
+        // line 18
         $this->displayBlock('body', $context, $blocks);
-        // line 17
-        echo "
+        // line 19
+        echo "</div>
         
 
         ";
-        // line 20
+        // line 22
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 21
+        // line 23
         echo "    </body>
 </html>
 ";
@@ -133,7 +135,7 @@ class __TwigTemplate_849b6403b4620a2eac43fbd8bfb777882d09787020cc90b8da7466e7d8a
 
     }
 
-    // line 16
+    // line 18
     public function block_body($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -150,7 +152,7 @@ class __TwigTemplate_849b6403b4620a2eac43fbd8bfb777882d09787020cc90b8da7466e7d8a
 
     }
 
-    // line 20
+    // line 22
     public function block_javascripts($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -175,7 +177,7 @@ class __TwigTemplate_849b6403b4620a2eac43fbd8bfb777882d09787020cc90b8da7466e7d8a
 
     public function getDebugInfo()
     {
-        return array (  154 => 20,  137 => 16,  127 => 13,  124 => 12,  115 => 11,  97 => 7,  79 => 5,  67 => 21,  65 => 20,  60 => 17,  58 => 16,  54 => 14,  52 => 11,  47 => 8,  45 => 7,  40 => 5,  34 => 1,);
+        return array (  156 => 22,  139 => 18,  129 => 13,  126 => 12,  117 => 11,  99 => 7,  81 => 5,  69 => 23,  67 => 22,  62 => 19,  60 => 18,  54 => 14,  52 => 11,  47 => 8,  45 => 7,  40 => 5,  34 => 1,);
     }
 
     public function getSourceContext()
@@ -195,8 +197,10 @@ class __TwigTemplate_849b6403b4620a2eac43fbd8bfb777882d09787020cc90b8da7466e7d8a
     {% endblock %}
 
 </header>
-        {% block body %}{% endblock %}
 
+<div class=\"container\">
+        {% block body %}{% endblock %}
+</div>
         
 
         {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}

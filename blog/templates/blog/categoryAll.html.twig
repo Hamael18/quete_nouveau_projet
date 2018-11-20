@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <div class="container text-info mb-3 mt-5">
+        {% for category in categories %}
+            <h1> {{ category.name }}! ✅</h1>
+        {% endfor %}
+
+        <div class="mt-5">
+            {{ form_start(form) }}
+            {{ form_row(form) }}
+            <button type="submit" class="btn btn-danger" name="btnSearch">Ajouter</button>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

@@ -50,6 +50,7 @@ class __TwigTemplate_e2cfc96dcce6d4b501beffa4b8cfcf317b0738915752ad86e5e182a57d9
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
+        echo "Category index";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -68,41 +69,65 @@ class __TwigTemplate_e2cfc96dcce6d4b501beffa4b8cfcf317b0738915752ad86e5e182a57d9
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "
-    <div class=\"container text-info mb-3 mt-5\">
+        echo "    <h1>Category index</h1>
+
+    <table class=\"table\">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
         ";
-        // line 8
+        // line 17
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new Twig_Error_Runtime('Variable "categories" does not exist.', 8, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new Twig_Error_Runtime('Variable "categories" does not exist.', 17, $this->source); })()));
+        $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 9
-            echo "        <h1> ";
+            // line 18
+            echo "            <tr>
+                <td>";
+            // line 19
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "id", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 20
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "name", array()), "html", null, true);
-            echo "! ✅</h1>
-";
+            echo "</td>
+                <td>
+                    <a class=\"btn btn-danger\" href=\"";
+            // line 22
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("category_show", array("id" => twig_get_attribute($this->env, $this->source, $context["category"], "id", array()))), "html", null, true);
+            echo "\">show</a>
+                    <a class=\"btn btn-success\" href=\"";
+            // line 23
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("category_edit", array("id" => twig_get_attribute($this->env, $this->source, $context["category"], "id", array()))), "html", null, true);
+            echo "\">edit</a>
+                </td>
+            </tr>
+        ";
+            $context['_iterated'] = true;
+        }
+        if (!$context['_iterated']) {
+            // line 27
+            echo "            <tr>
+                <td colspan=\"3\">no records found</td>
+            </tr>
+        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 11
-        echo "
-        <div class=\"mt-5\">
-            ";
-        // line 13
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 13, $this->source); })()), 'form_start');
-        echo "
-            ";
-        // line 14
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 14, $this->source); })()), 'row');
-        echo "
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
-            ";
-        // line 16
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 16, $this->source); })()), 'form_end');
-        echo "
-        </div>
+        // line 31
+        echo "        </tbody>
+    </table>
 
-    </div>
+    <a href=\"";
+        // line 34
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("category_new");
+        echo "\">Create new</a>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -124,30 +149,46 @@ class __TwigTemplate_e2cfc96dcce6d4b501beffa4b8cfcf317b0738915752ad86e5e182a57d9
 
     public function getDebugInfo()
     {
-        return array (  101 => 16,  96 => 14,  92 => 13,  88 => 11,  79 => 9,  75 => 8,  71 => 6,  62 => 5,  45 => 3,  15 => 1,);
+        return array (  129 => 34,  124 => 31,  115 => 27,  106 => 23,  102 => 22,  97 => 20,  93 => 19,  90 => 18,  85 => 17,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Twig_Source("{% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Category index{% endblock %}
 
 {% block body %}
+    <h1>Category index</h1>
 
-    <div class=\"container text-info mb-3 mt-5\">
+    <table class=\"table\">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for category in categories %}
-        <h1> {{ category.name }}! ✅</h1>
-{% endfor %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a class=\"btn btn-danger\" href=\"{{ path('category_show', {'id': category.id}) }}\">show</a>
+                    <a class=\"btn btn-success\" href=\"{{ path('category_edit', {'id': category.id}) }}\">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan=\"3\">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-        <div class=\"mt-5\">
-            {{ form_start(form) }}
-            {{ form_row(form) }}
-            <button type=\"submit\" class=\"btn btn-success\" name=\"btnSearch\">Ajouter</button>
-            {{ form_end(form) }}
-        </div>
-
-    </div>
-{% endblock %}", "category/index.html.twig", "/home/wilder/Documents/quête/symfony/blog/templates/category/index.html.twig");
+    <a href=\"{{ path('category_new') }}\">Create new</a>
+{% endblock %}
+", "category/index.html.twig", "/home/wilder/Documents/quête/symfony/blog/templates/category/index.html.twig");
     }
 }

@@ -51,7 +51,7 @@ class __TwigTemplate_8606221b69913bdecf5013c3385d5632ff55110c04ccb0173f4c920093d
         echo "    <nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">
         <a class=\"navbar-brand\" href=\"";
         // line 4
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_index");
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
         echo "\">Blog miteux</a>
         <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
             <span class=\"navbar-toggler-icon\"></span>
@@ -62,17 +62,26 @@ class __TwigTemplate_8606221b69913bdecf5013c3385d5632ff55110c04ccb0173f4c920093d
                 <li class=\"nav-item active\">
                     <a class=\"nav-link\" href=\"";
         // line 12
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("blog_index");
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
         echo "\">Home <span class=\"sr-only\">(current)</span></a>
                 </li>
                 <li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"";
         // line 15
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("category");
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("category_index");
         echo "\">Categories</a>
                 </li>
                 <li class=\"nav-item\">
-                    <a class=\"nav-link\" href=\"/article\">Articles</a>
+                    <a class=\"nav-link\" href=\"";
+        // line 18
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("article_index");
+        echo "\">Articles</a>
+                </li>
+                <li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"";
+        // line 21
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tag_index");
+        echo "\">Tags</a>
                 </li>
             </ul>
             </div>
@@ -94,7 +103,7 @@ class __TwigTemplate_8606221b69913bdecf5013c3385d5632ff55110c04ccb0173f4c920093d
 
     public function getDebugInfo()
     {
-        return array (  71 => 15,  65 => 12,  54 => 4,  51 => 3,  33 => 2,  30 => 1,);
+        return array (  83 => 21,  77 => 18,  71 => 15,  65 => 12,  54 => 4,  51 => 3,  33 => 2,  30 => 1,);
     }
 
     public function getSourceContext()
@@ -102,7 +111,7 @@ class __TwigTemplate_8606221b69913bdecf5013c3385d5632ff55110c04ccb0173f4c920093d
         return new Twig_Source("
 {% block navbar %}
     <nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">
-        <a class=\"navbar-brand\" href=\"{{ path('blog_index') }}\">Blog miteux</a>
+        <a class=\"navbar-brand\" href=\"{{ path('home') }}\">Blog miteux</a>
         <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
             <span class=\"navbar-toggler-icon\"></span>
         </button>
@@ -110,13 +119,16 @@ class __TwigTemplate_8606221b69913bdecf5013c3385d5632ff55110c04ccb0173f4c920093d
         <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">
             <ul class=\"navbar-nav mr-auto\">
                 <li class=\"nav-item active\">
-                    <a class=\"nav-link\" href=\"{{ path('blog_index') }}\">Home <span class=\"sr-only\">(current)</span></a>
+                    <a class=\"nav-link\" href=\"{{ path('home') }}\">Home <span class=\"sr-only\">(current)</span></a>
                 </li>
                 <li class=\"nav-item\">
-                    <a class=\"nav-link\" href=\"{{ path('category') }}\">Categories</a>
+                    <a class=\"nav-link\" href=\"{{ path('category_index') }}\">Categories</a>
                 </li>
                 <li class=\"nav-item\">
-                    <a class=\"nav-link\" href=\"/article\">Articles</a>
+                    <a class=\"nav-link\" href=\"{{ path('article_index') }}\">Articles</a>
+                </li>
+                <li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"{{ path('tag_index') }}\">Tags</a>
                 </li>
             </ul>
             </div>

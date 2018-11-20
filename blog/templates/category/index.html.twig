@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Category index{% endblock %}
 
 {% block body %}
+    <h1>Category index</h1>
 
-    <div class="container text-info mb-3 mt-5">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for category in categories %}
-        <h1> {{ category.name }}! ✅</h1>
-{% endfor %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('category_show', {'id': category.id}) }}">show</a>
+                    <a class="btn btn-success" href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-        <div class="mt-5">
-            {{ form_start(form) }}
-            {{ form_row(form) }}
-            <button type="submit" class="btn btn-danger" name="btnSearch">Ajouter</button>
-            {{ form_end(form) }}
-        </div>
-
-    </div>
+    <a href="{{ path('category_new') }}">Create new</a>
 {% endblock %}

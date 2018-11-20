@@ -50,7 +50,7 @@ class __TwigTemplate_aadd6e773aee27f6d57fb93dff462e9877521383317c1e4f936dcc2d34e
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "title"));
 
-        echo "Hello CPT";
+        echo "Article index";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -69,51 +69,107 @@ class __TwigTemplate_aadd6e773aee27f6d57fb93dff462e9877521383317c1e4f936dcc2d34e
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "
+        echo "    <h1>Article index</h1>
 
-
-    <div class=\"container\">
-
-
-
-    <h2 class=\"text-info mt-5\">Welcome sur le blog de CPT (chasse pêche et tradition of course)</h2>
-
-    ";
-        // line 15
+    <table class=\"table\">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Tag(s)</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        ";
+        // line 21
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["articleCategory"]) || array_key_exists("articleCategory", $context) ? $context["articleCategory"] : (function () { throw new Twig_Error_Runtime('Variable "articleCategory" does not exist.', 15, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 16
-            echo "        <h4 class=\"text-success\"><u>";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["category"], "owner", array()), "name", array()), "html", null, true);
-            echo "</u></h4><br>
-    ";
-            // line 17
+        $context['_seq'] = twig_ensure_traversable((isset($context["articles"]) || array_key_exists("articles", $context) ? $context["articles"] : (function () { throw new Twig_Error_Runtime('Variable "articles" does not exist.', 21, $this->source); })()));
+        $context['_iterated'] = false;
+        foreach ($context['_seq'] as $context["_key"] => $context["article"]) {
+            // line 22
+            echo "            <tr>
+                <td>";
+            // line 23
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "id", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 24
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "title", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 25
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "content", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 26
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["article"], "slug", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 27
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["article"], "category", array()), "name", array()), "html", null, true);
+            echo "</td>
+                <td>
+                    ";
+            // line 29
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable($context["category"]);
-            foreach ($context['_seq'] as $context["_key"] => $context["articles"]) {
-                // line 18
-                echo "
-    <h5 >";
-                // line 19
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["articles"], "title", array()), "html", null, true);
-                echo "</h5><br>
-    <p >";
-                // line 20
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["articles"], "content", array()), "html", null, true);
-                echo "</p><br><hr>
-";
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["article"], "tags", array()));
+            $context['_iterated'] = false;
+            foreach ($context['_seq'] as $context["_key"] => $context["tag"]) {
+                // line 30
+                echo "                        <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tag_show", array("id" => twig_get_attribute($this->env, $this->source, $context["tag"], "id", array()))), "html", null, true);
+                echo "\"><li>";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["tag"], "name", array()), "html", null, true);
+                echo " </li></a>
+                    ";
+                $context['_iterated'] = true;
+            }
+            if (!$context['_iterated']) {
+                // line 32
+                echo "                        <li>No tags for this article</li>
+                    ";
             }
             $_parent = $context['_parent'];
-            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['articles'], $context['_parent'], $context['loop']);
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['tag'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 34
+            echo "                </td>
+                <td>
+                    <a class=\"btn btn-danger\" href=\"";
+            // line 36
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("article_show", array("id" => twig_get_attribute($this->env, $this->source, $context["article"], "id", array()))), "html", null, true);
+            echo "\">show</a>
+                    <a class=\"btn btn-success\" href=\"";
+            // line 37
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("article_edit", array("id" => twig_get_attribute($this->env, $this->source, $context["article"], "id", array()))), "html", null, true);
+            echo "\">edit</a>
+                </td>
+            </tr>
+        ";
+            $context['_iterated'] = true;
+        }
+        if (!$context['_iterated']) {
+            // line 41
+            echo "            <tr>
+                <td colspan=\"5\">no records found</td>
+            </tr>
+        ";
         }
         $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['article'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 23
-        echo "</div>
+        // line 45
+        echo "        </tbody>
+    </table>
 
+    <a href=\"";
+        // line 48
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("article_new");
+        echo "\">Create new</a>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -135,35 +191,59 @@ class __TwigTemplate_aadd6e773aee27f6d57fb93dff462e9877521383317c1e4f936dcc2d34e
 
     public function getDebugInfo()
     {
-        return array (  115 => 23,  103 => 20,  99 => 19,  96 => 18,  92 => 17,  87 => 16,  83 => 15,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
+        return array (  171 => 48,  166 => 45,  157 => 41,  148 => 37,  144 => 36,  140 => 34,  133 => 32,  123 => 30,  118 => 29,  113 => 27,  109 => 26,  105 => 25,  101 => 24,  97 => 23,  94 => 22,  89 => 21,  72 => 6,  63 => 5,  45 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Twig_Source("{% extends 'base.html.twig' %}
 
-{% block title %}Hello CPT{% endblock %}
+{% block title %}Article index{% endblock %}
 
 {% block body %}
+    <h1>Article index</h1>
 
+    <table class=\"table\">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Tag(s)</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.content }}</td>
+                <td>{{ article.slug }}</td>
+                <td>{{ article.category.name }}</td>
+                <td>
+                    {% for tag in article.tags %}
+                        <a href=\"{{ path('tag_show', {id: tag.id}) }}\"><li>{{ tag.name }} </li></a>
+                    {% else %}
+                        <li>No tags for this article</li>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a class=\"btn btn-danger\" href=\"{{ path('article_show', {'id': article.id}) }}\">show</a>
+                    <a class=\"btn btn-success\" href=\"{{ path('article_edit', {'id': article.id}) }}\">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan=\"5\">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-
-    <div class=\"container\">
-
-
-
-    <h2 class=\"text-info mt-5\">Welcome sur le blog de CPT (chasse pêche et tradition of course)</h2>
-
-    {% for category in articleCategory %}
-        <h4 class=\"text-success\"><u>{{ category.owner.name }}</u></h4><br>
-    {% for articles in category %}
-
-    <h5 >{{ articles.title }}</h5><br>
-    <p >{{ articles.content }}</p><br><hr>
-{% endfor %}
-{% endfor %}
-</div>
-
+    <a href=\"{{ path('article_new') }}\">Create new</a>
 {% endblock %}
 ", "article/index.html.twig", "/home/wilder/Documents/quête/symfony/blog/templates/article/index.html.twig");
     }

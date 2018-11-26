@@ -11,11 +11,10 @@ namespace App\Service;
 
 class Slugify
 {
-/*    public function generate(string $input) : string
+    public function generate(string $input) : string
     {
-        $input = preg_replace(
-            ' ',
-            '/-/', ucwords(trim(strip_tags($input)))
-        );
-    }*/
+        $input = iconv('utf-8', 'us-ascii//TRANSLIT', $input);
+        return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/', '/[ -]+/', '/^-|-$/'),
+            array('', '-', ''), $input));
+    }
 }

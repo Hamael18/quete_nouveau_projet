@@ -4462,10 +4462,23 @@
         <argument key="articleRepository" type="service" id="App\Repository\ArticleRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.P38bW4v" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="slugify" type="service" id="App\Service\Slugify"/>
+      </argument>
+    </service>
     <service id=".service_locator.zv3hrPg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="article" type="service" id=".errored..service_locator.zv3hrPg.App\Entity\Article"/>
+      </argument>
+    </service>
+    <service id=".service_locator.1O7TZ6g" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="article" type="service" id=".errored..service_locator.1O7TZ6g.App\Entity\Article"/>
+        <argument key="slugify" type="service" id="App\Service\Slugify"/>
       </argument>
     </service>
     <service id=".service_locator.cxYSoue" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -4492,12 +4505,13 @@
         <argument key="tag" type="service" id=".errored..service_locator.z2T0V0W.App\Entity\Tag"/>
       </argument>
     </service>
-    <service id=".service_locator.BJZZlq6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.rqrxiu4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service" id=".service_locator.zv3hrPg"/>
-        <argument key="App\Controller\ArticleController::edit" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\ArticleController::edit" type="service" id=".service_locator.1O7TZ6g"/>
         <argument key="App\Controller\ArticleController::index" type="service" id=".service_locator.62SZVUr"/>
+        <argument key="App\Controller\ArticleController::new" type="service" id=".service_locator.P38bW4v"/>
         <argument key="App\Controller\ArticleController::show" type="service" id=".service_locator.zv3hrPg"/>
         <argument key="App\Controller\CategoryController::delete" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\CategoryController::edit" type="service" id=".service_locator.koD3dBr"/>
@@ -4508,8 +4522,9 @@
         <argument key="App\Controller\TagController::index" type="service" id=".service_locator.Ur1lQtD"/>
         <argument key="App\Controller\TagController::show" type="service" id=".service_locator.z2T0V0W"/>
         <argument key="App\Controller\ArticleController:delete" type="service" id=".service_locator.zv3hrPg"/>
-        <argument key="App\Controller\ArticleController:edit" type="service" id=".service_locator.zv3hrPg"/>
+        <argument key="App\Controller\ArticleController:edit" type="service" id=".service_locator.1O7TZ6g"/>
         <argument key="App\Controller\ArticleController:index" type="service" id=".service_locator.62SZVUr"/>
+        <argument key="App\Controller\ArticleController:new" type="service" id=".service_locator.P38bW4v"/>
         <argument key="App\Controller\ArticleController:show" type="service" id=".service_locator.zv3hrPg"/>
         <argument key="App\Controller\CategoryController:delete" type="service" id=".service_locator.koD3dBr"/>
         <argument key="App\Controller\CategoryController:edit" type="service" id=".service_locator.koD3dBr"/>
@@ -4763,7 +4778,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.BJZZlq6"/>
+      <argument type="service" id=".service_locator.rqrxiu4"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -4864,6 +4879,7 @@
       <factory service=".service_locator.UEpceA5" method="withContext"/>
     </service>
     <service id=".errored..service_locator.zv3hrPg.App\Entity\Article" class="App\Entity\Article"/>
+    <service id=".errored..service_locator.1O7TZ6g.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.koD3dBr.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".errored..service_locator.z2T0V0W.App\Entity\Tag" class="App\Entity\Tag"/>
     <service id=".service_locator.HKoUR8q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -5192,7 +5208,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.BJZZlq6"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.rqrxiu4"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~mHb.yHH" public="false"/>

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Service\Slugify;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,9 +18,8 @@ class ArticleType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('slug')
             ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'name'])
-            ->add('tags', EntityType::class, ['class' => Tag::class, 'choice_label' => 'name'])
+            ->add('tags', EntityType::class, ['class' => Tag::class, 'choice_label' => 'name','multiple'=>true, 'expanded'=>true])
         ;
     }
 
